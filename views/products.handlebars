@@ -1,0 +1,36 @@
+<h1> Products </h1>
+{{#if productos.length}}
+<ul>
+    {{#each productos}}
+    <div class="prodList">
+        <h2>{{title}}</h2>
+        <img src="{{this.img}}" alt="{{this.title}}" class="productImage">
+        <p> {{_id}} </p>
+        <p class="categorySte">{{description}}</p>
+        <p>Price: ${{price}}</p>
+        <p>Category: {{category}} </p><br>
+        <button class="pointer" id="add2Cart"> Agregar al Carrito </button>
+        <br><br><br>
+    </div>
+    {{/each}}
+</ul>
+{{else}}
+<p>No products found on this page.</p>
+{{/if}}
+
+<br>
+<br>
+
+<hr>
+<div class="pagination-container">
+    {{#if hasPrevPage}}
+    <a href="/products?page={{prevPage}}" class="prev-page">Anterior</a>
+    {{/if}}
+    {{#if hasNextPage}}
+    <a href="/products?page={{nextPage}}" class="next-page">Siguiente</a>
+    {{/if}}
+    <br>
+    <div>
+        <p class="textPag">Pagina {{currentPage}} de {{totalPages}} </p>
+    </div>
+</div>

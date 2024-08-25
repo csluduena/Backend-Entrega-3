@@ -1,0 +1,23 @@
+<!-- views/carts.handlebars -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carts List</title>
+</head>
+
+<body>
+    <h1>Lista de Carritos</h1>
+
+    <p>Total de carritos creados: {{cartInfo.count}}</p>
+    <ul>
+        {{#each cartInfo.carts}}
+        <li>ID del carrito: {{this}}</li>
+        {{/each}}
+    </ul>
+
+</body>
+
+</html>
