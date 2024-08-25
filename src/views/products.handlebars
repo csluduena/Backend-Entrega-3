@@ -1,22 +1,47 @@
 {{!-- No necesitas el DOCTYPE, html, head o body aquí --}}
 <h1>Products</h1>
 {{#if productos.length}}
-    <ul>
-        {{#each productos}}
-            <div class="prodList">
-                <h2>{{title}}</h2>
-                <img src="{{this.img}}" alt="{{this.title}}" class="productImage">
-                <p>{{_id}}</p>
-                <p class="categorySte">{{description}}</p>
-                <p>Price: ${{price}}</p>
-                <p>Category: {{category}}</p><br>
-                <button class="pointer" id="add2Cart"> Add to Cart </button>
-                <br><br><br>
-            </div>
-        {{/each}}
-    </ul>
+<ul>
+    {{#each productos}}
+    <div class="prodList">
+        <h2>{{title}}</h2>
+        <img src="{{this.img}}" alt="{{this.title}}" class="productImage">
+        <p>{{_id}}</p>
+        <p class="categorySte">{{description}}</p>
+        <p>Price: ${{price}}</p>
+        <p>Category: {{category}}</p>
+
+        <!-- Formulario para agregar al carrito -->
+        <form action="/api/carts/addProduct" method="POST" class="add-to-cart-form">
+            <input type="hidden" name="productId" value="{{_id}}">
+            <label for="cartId">Select Cart:</label>
+            <select name="cartId" required>
+                <option value="">Loading...</option>
+            </select>
+            <button type="submit">Add to Cart</button>
+        </form>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                fetch('/api/carts')
+                    .then(response => response.json())
+                    .then(carts => {
+                        const select = document.querySelector('select[name="cartId"]');
+                        select.innerHTML = carts.map(cart => `<option value="${cart._id}">Cart ID: ${cart._id}</option>`).join('');
+                    })
+                    .catch(error => {
+                        console.error('Error fetching carts', error);
+                        document.querySelector('select[name="cartId"]').innerHTML = '<option value="">Failed to load carts</option>';
+                    });
+            });
+        </script>
+
+        <br><br><br>
+    </div>
+    {{/each}}
+</ul>
 {{else}}
-    <p>No products found on this page.</p>
+<p>No products found on this page.</p>
 {{/if}}
 
 <br>
@@ -25,10 +50,10 @@
 <hr>
 <div class="pagination-container">
     {{#if hasPrevPage}}
-        <a href="/products?page={{prevPage}}" class="prev-page">Previous</a>
+    <a href="/products?page={{prevPage}}" class="prev-page">Previous</a>
     {{/if}}
     {{#if hasNextPage}}
-        <a href="/products?page={{nextPage}}" class="next-page">Next</a>
+    <a href="/products?page={{nextPage}}" class="next-page">Next</a>
     {{/if}}
     <br>
     <div>

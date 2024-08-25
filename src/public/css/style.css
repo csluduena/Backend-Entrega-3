@@ -217,3 +217,78 @@ body::before {
     margin-bottom: 2%;
     border-radius: 2rem;
 }
+
+/*--------------------- ESTILOS CARTS.HANDLEBARS-------------------*/
+/* Estilos generales */
+.heading0 {
+    font-size: 2em;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.carts-container0 {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+}
+
+.cart-item0 {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #00000088;
+}
+
+.cart-id0 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.total-quantity0 {
+    font-size: 1.2em;
+    margin-bottom: 15px;
+}
+
+.products-list0 {
+    margin-top: 10px;
+}
+
+.product-item0 {
+    border-top: 1px solid #eee;
+    padding: 10px 0;
+}
+
+.product-id0, 
+.product-title0, 
+.product-price0, 
+.product-quantity0 {
+    margin: 5px 0;
+}
+
+.no-carts0 {
+    font-size: 1.2em;
+    text-align: center;
+    color: #888;
+}
+
+.subtitulo0 {
+    color: #de4400;
+    text-shadow: -2px 2px 0px #000000;
+    font-size: 20px;
+}
+
+.remove0, 
+.remove0 a {
+    text-decoration: none; /* Elimina el subrayado en los enlaces */
+    color: inherit; /* Mantiene el color del texto de acuerdo con el elemento padre */
+}
+
+.remove0:hover {
+    color: red;
+}
+
+.btnBack2Carts {
+    text-decoration: none;
+}

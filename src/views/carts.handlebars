@@ -1,21 +1,29 @@
 {{!-- No necesitas el DOCTYPE, html, head o body aquí --}}
-<h1>Carts</h1>
+<h1 class="heading0">Carritos creados actualmente</h1>
+
+<h4 class="subtitulo0">AL hacer click en el Cart ID te llevará a una pestaña nueva con la visual del Carrito.</h4>
+
 {{#if carts.length}}
-    <ul>
+    <div class="carts-container0">
         {{#each carts}}
-            <li>
-                <h2>Cart ID: {{id}}</h2>
-                <p>Total Products: {{totalQuantity}}</p>
-                <ul>
+            <div class="cart-item0">
+                <a href="/carts/{{id}}" class="cart-id-link0 remove0" target="_blank">
+                    <h2 class="cart-id0">Cart ID: {{id}}</h2>
+                </a>
+                <p class="total-quantity0">Total Products: {{totalQuantity}}</p>
+                <div class="products-list0">
                     {{#each products}}
-                        <li>
-                            Product ID: {{id}} - Title: {{title}}, Price: {{price}}, Quantity: {{quantity}}
-                        </li>
+                        <div class="product-item0">
+                            <p class="product-id0">Product ID: {{id}}</p>
+                            <p class="product-title0">Title: {{title}}</p>
+                            <p class="product-price0">Price: ${{price}}</p>
+                            <p class="product-quantity0">Quantity: {{quantity}}</p>
+                        </div>
                     {{/each}}
-                </ul>
-            </li>
+                </div>
+            </div>
         {{/each}}
-    </ul>
+    </div>
 {{else}}
-    <p>No carts found</p>
+    <p class="no-carts0">No carts found</p>
 {{/if}}

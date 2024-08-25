@@ -1,10 +1,13 @@
-import express from "express";
-const router = express.Router();
-import ProductManager from "../dao/db/product-manager-db.js";
-const productManager = new ProductManager();
+import express from 'express';
+import CartManager from '../dao/db/cart-manager-db.js'; // Ajusta la ruta según tu estructura
+import ProductManager from '../dao/db/product-manager-db.js'; // Ajusta la ruta según tu estructura
 
-// Get products with pagination, sorting, and filtering
-router.get("/", async (req, res) => {
+const router = express.Router();
+const cartManager = new CartManager(); // Instancia de CartManager
+const productManager = new ProductManager(); // Instancia de ProductManager
+
+// Endpoint para obtener productos con paginación, orden y filtrado
+router.get('/', async (req, res) => {
     try {
         const { limit = 10, page = 1, sort = 'asc', query = '' } = req.query;
 
@@ -37,8 +40,8 @@ router.get("/", async (req, res) => {
     }
 });
 
-// Get a single product by id
-router.get("/:pid", async (req, res) => {
+// Endpoint para obtener un producto específico por ID
+router.get('/:pid', async (req, res) => {
     const id = req.params.pid;
 
     try {
@@ -58,8 +61,8 @@ router.get("/:pid", async (req, res) => {
     }
 });
 
-// Add a new product
-router.post("/", async (req, res) => {
+// Endpoint para agregar un producto
+router.post('/', async (req, res) => {
     const newProduct = req.body;
 
     try {
@@ -75,8 +78,8 @@ router.post("/", async (req, res) => {
     }
 });
 
-// Update a product by id
-router.put("/:pid", async (req, res) => {
+// Endpoint para actualizar un producto por ID
+router.put('/:pid', async (req, res) => {
     const id = req.params.pid;
     const updatedProduct = req.body;
 
@@ -93,8 +96,8 @@ router.put("/:pid", async (req, res) => {
     }
 });
 
-// Delete a product by id
-router.delete("/:pid", async (req, res) => {
+// Endpoint para eliminar un producto por ID
+router.delete('/:pid', async (req, res) => {
     const id = req.params.pid;
 
     try {
@@ -110,27 +113,34 @@ router.delete("/:pid", async (req, res) => {
     }
 });
 
-// Endpoint para obtener productos con orden
-router.get('/api/products', async (req, res) => {
+// Endpoint para agregar un producto al carrito
+router.post('/addProduct', async (req, res) => {
+    const { productId, cartId } = req.body;
+    
+    if (!productId || !cartId) {
+        return res.status(400).json({ error: 'Product ID and Cart ID are required' });
+    }
+
     try {
-        let { limit = 10, page = 1, sort = 'asc', query = '' } = req.query;
-        limit = parseInt(limit);
-        page = parseInt(page);
+        // Verificar si el carrito existe
+        const cart = await cartManager.getCartById(cartId);
+        if (!cart) {
+            return res.status(404).json({ error: 'Cart not found' });
+        }
 
-        const products = await productManager.getProducts(query, sort);
+        // Verificar si el producto existe
+        const product = await productManager.getProductById(productId);
+        if (!product) {
+            return res.status(404).json({ error: 'Product not found' });
+        }
 
-        const sortedProducts = products.sort((a, b) => {
-            if (sort === 'asc') {
-                return a.price - b.price;
-            } else {
-                return b.price - a.price;
-            }
-        });
+        // Agregar producto al carrito
+        await cartManager.addProductToCart(cartId, productId);
 
-        const paginatedProducts = sortedProducts.slice((page - 1) * limit, page * limit);
-        res.json(paginatedProducts);
+        res.status(200).json({ message: 'Product added to cart' });
     } catch (error) {
-        res.status(500).json({ error: 'Error al obtener productos' });
+        console.error('Error adding product to cart:', error);
+        res.status(500).json({ error: 'Internal server error' });
     }
 });
 

@@ -28,47 +28,39 @@ class CartManager {
         }
     }
 
-    async addProductToCart(cartId, productId, quantity = 1) {
+    async addProductToCart(cartId, productId) {
         try {
-            const cart = await this.getCartById(cartId);
-
+            const cart = await CartModel.findById(cartId);
             if (!cart) {
-                throw new Error('Cart not found');
+                console.log(`Cart with ID ${cartId} not found`);
+                return null;
             }
 
-            const existingProduct = cart.products.find(item => item.product._id.toString() === productId.toString());
+            const product = await ProductModel.findById(productId);
+            if (!product) {
+                console.log(`Product with ID ${productId} not found`);
+                return null;
+            }
 
-            if (existingProduct) {
-                existingProduct.quantity += quantity;
-                console.log('Successfully added to existing product');
+            // Verifica si el producto ya está en el carrito
+            const existingProductIndex = cart.products.findIndex(p => p.product.toString() === productId);
+
+            if (existingProductIndex >= 0) {
+                // Si el producto ya está en el carrito, incrementa la cantidad
+                cart.products[existingProductIndex].quantity += 1;
             } else {
-                console.log('First time in the cart');
-                cart.products.push({ product: productId, quantity });
+                // Si el producto no está en el carrito, agrégalo con cantidad 1
+                cart.products.push({ product: productId, quantity: 1 });
             }
-
-            cart.markModified("products");
 
             await cart.save();
+            console.log('Product added to cart successfully');
             return cart;
-
         } catch (error) {
-            console.log("Error adding a product", error);
+            console.error('Error adding product to cart:', error.message || error);
             throw error;
         }
     }
-
-    // async getAllCarts() {
-    //     try {
-    //         const carts = await CartModel.find({}, '_id');
-    //         return {
-    //             count: carts.length,
-    //             carts: carts.map(cart => cart._id)
-    //         };
-    //     } catch (error) {
-    //         console.error('Error retrieving carts:', error);
-    //         throw new Error('Could not retrieve carts');
-    //     }
-    // }
 
     async getAllCarts() {
         try {

@@ -4,24 +4,26 @@ import CartManager from "../dao/db/cart-manager-db.js";
 const router = express.Router();
 const cartManager = new CartManager();
 
-router.get("/", async (req, res) => {
+router.get('/', async (req, res) => {
     try {
-        const carts = await cartManager.getAllCarts();
+        const carts = await cartManager.getAllCarts(); // Asume que `getAllCarts` es un método que devuelve todos los carritos
         res.json(carts);
     } catch (error) {
-        console.error("Error getting all carts", error);
-        res.status(500).json({ error: "Internal server error" });
+        console.error('Error fetching carts', error);
+        res.status(500).json({ error: 'Internal server error' });
     }
 });
 
-// Ruta para la vista HTML general de carritos
+
+
+// Endpoint para obtener todos los carritos
 router.get('/carts', async (req, res) => {
     try {
-        const carts = await cartManager.getAllCarts();
-        res.render('carts', { carts });
+        const carts = await CartManager.getAllCarts();
+        res.json(carts); // Devuelve los carritos en formato JSON
     } catch (error) {
-        console.error('Error retrieving carts:', error);
-        res.status(500).render('error', { message: 'Internal server error' });
+        console.error('Error fetching carts:', error);
+        res.status(500).json({ error: 'Error fetching carts' });
     }
 });
 
@@ -217,5 +219,35 @@ router.put("/:cid", async (req, res) => {
         res.status(500).json({ error: "Error updating the cart" });
     }
 });
+
+// Endpoint para agregar un producto al carrito
+router.post('/addProduct', async (req, res) => {
+    try {
+        const { productId, cartId } = req.body;
+
+        // Verifica que se estén recibiendo los datos correctamente
+        console.log(`Received productId: ${productId}, cartId: ${cartId}`);
+
+        if (!productId || !cartId) {
+            console.log('Product ID and Cart ID are required');
+            return res.status(400).json({ error: 'Product ID and Cart ID are required' });
+        }
+
+        // Llama al método del CartManager y captura cualquier posible error
+        const result = await cartManager.addProductToCart(cartId, productId);
+
+        if (!result) {
+            console.log('Failed to add product to cart');
+            return res.status(400).json({ error: 'Error adding product to cart' });
+        }
+
+        return res.status(200).json({ message: 'Product added to cart successfully' });
+    } catch (error) {
+        // Captura el error específico y lo muestra en la consola
+        console.error('Detailed error:', error.message || error);
+        return res.status(500).json({ error: 'Error adding product to cart' });
+    }
+});
+
 
 export default router;
