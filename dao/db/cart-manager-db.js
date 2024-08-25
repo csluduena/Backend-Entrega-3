@@ -54,8 +54,8 @@ class CartManager {
 
     async getAllCarts() {
         try {
-            // Recupera todos los carritos desde la base de datos
-            const carts = await Cart.find({}, '_id');
+            // Recupera todos los carritos desde la base de datos utilizando el modelo correcto
+            const carts = await CartModel.find({}, '_id');
 
             // Retorna la cantidad de carritos y sus IDs
             return {
