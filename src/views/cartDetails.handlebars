@@ -1,0 +1,17 @@
+{{!-- No necesitas el DOCTYPE, html, head o body aquí --}}
+<link rel="stylesheet" href="/css/style.css">
+<h1>Cart Details</h1>
+
+{{#if cart}}
+    <h2>Cart ID: {{cart._id}}</h2>
+    <p>Total Products: {{cart.products.length}}</p>
+    <ul>
+        {{#each cart.products}}
+            <li>Product ID: {{this.product._id}} - Title: {{this.product.title}}, Quantity: {{this.quantity}}</li>
+        {{/each}}
+    </ul>
+{{else}}
+    <p>No products in this cart</p>
+{{/if}}
+
+<a href="/carts">Back to carts</a>

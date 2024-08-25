@@ -83,21 +83,40 @@ router.get('/', async (req, res) => {
     }
 });
 
-// Render cart page (this is just a placeholder, adjust as needed)
-router.get("/cart/:cid", async (req, res) => {
-    const cartId = req.params.cid;
-
+router.get('/carts', async (req, res) => {
     try {
-        const cart = await cartManager.getCartById(cartId);
-        if (!cart) {
-            return res.status(404).send("Cart not found");
-        }
-        res.render("cart", { cart });
+        // Obtén todos los carritos desde el cartManager
+        const carts = await cartManager.getAllCarts();
+
+        // Si la vista no carga, verifica que `carts.handlebars` esté en la carpeta correcta
+        res.render('carts', { carts });
     } catch (error) {
-        console.error("Error rendering cart page", error);
-        res.status(500).send("Internal server error");
+        console.error('Error retrieving carts:', error);
+        res.status(500).render('error', { message: 'Internal server error' });
     }
 });
+
+router.get('/carts/:cid', async (req, res) => {
+    try {
+        const cartId = req.params.cid;
+        //console.log("Received cartId:", cartId);
+
+        const cart = await cartManager.getCartById(cartId);
+        //console.log("Fetched cart:", cart);
+
+        if (!cart) {
+            console.log("Cart not found.");
+            return res.status(404).render('error', { message: 'Cart not found' });
+        }
+
+        res.render('cartDetails', { cart });
+    } catch (error) {
+        console.error('Error retrieving cart details:', error);
+        res.status(500).render('error', { message: 'Internal server error' });
+    }
+});
+
+
 
 // // Ruta para obtener carrito por ID
 // router.get("/carts/:cid", async (req, res) => {

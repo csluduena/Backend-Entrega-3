@@ -1,27 +1,17 @@
-<!-- realtimeproducts.handlebars -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Real-Time Products</title>
-</head>
-<body>
-    <h1>Real-Time Products</h1>
-    <div id="product-list"></div>
-    <script src="/socket.io/socket.io.js"></script>
-    <script>
-        const socket = io();
-        const productList = document.getElementById('product-list');
+{{!-- No necesitas el DOCTYPE, html, head o body aquí --}}
+<h1>Real-Time Products</h1>
+<div id="product-list"></div>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    const socket = io();
+    const productList = document.getElementById('product-list');
 
-        socket.on('updateProducts', (products) => {
-            productList.innerHTML = products.map(product => 
-                `<div>${product.title} - ${product.price}</div>`
-            ).join('');
-        });
+    socket.on('updateProducts', (products) => {
+        productList.innerHTML = products.map(product => 
+            `<div>${product.title} - ${product.price}</div>`
+        ).join('');
+    });
 
-        // Example of emitting an event
-        socket.emit('sortProducts', { sort: 'asc' });
-    </script>
-</body>
-</html>
+    // Example of emitting an event
+    socket.emit('sortProducts', { sort: 'asc' });
+</script>

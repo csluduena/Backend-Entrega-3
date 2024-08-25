@@ -14,6 +14,98 @@ router.get("/", async (req, res) => {
     }
 });
 
+// Ruta para la vista HTML general de carritos
+router.get('/carts', async (req, res) => {
+    try {
+        const carts = await cartManager.getAllCarts();
+        res.render('carts', { carts });
+    } catch (error) {
+        console.error('Error retrieving carts:', error);
+        res.status(500).render('error', { message: 'Internal server error' });
+    }
+});
+
+// Ruta para la vista específica de un carrito
+router.get('/carts/:cid', async (req, res) => {
+    try {
+        const cartId = req.params.cid;
+        const cart = await cartManager.getCartById(cartId);
+
+        if (!cart) {
+            return res.status(404).render('error', { message: 'Cart not found' });
+        }
+
+        const cartDetails = {
+            id: cart._id,
+            totalQuantity: cart.products.reduce((total, item) => total + item.quantity, 0),
+            products: cart.products.map(item => ({
+                id: item.productId._id,
+                title: item.productId.title,
+                price: item.productId.price,
+                quantity: item.quantity
+            }))
+        };
+
+        res.render('cartDetails', { cart: cartDetails });
+    } catch (error) {
+        console.error('Error retrieving cart details:', error);
+        res.status(500).render('error', { message: 'Internal server error' });
+    }
+});
+
+// Ruta para obtener todos los carritos en formato JSON
+router.get('/api/carts', async (req, res) => {
+    try {
+        const carts = await cartManager.getAllCarts();
+
+        // Estructura los datos para que incluyan la cantidad total de productos en cada carrito
+        const cartData = carts.map(cart => ({
+            id: cart._id,
+            products: cart.products.map(item => ({
+                id: item.productId._id,
+                title: item.productId.title,
+                price: item.productId.price,
+                quantity: item.quantity
+            })),
+            totalQuantity: cart.products.reduce((total, item) => total + item.quantity, 0)
+        }));
+
+        res.json(cartData);
+    } catch (error) {
+        console.error('Error retrieving carts:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+
+// Ruta para obtener un carrito específico en formato JSON
+router.get('/api/carts/:cid', async (req, res) => {
+    try {
+        const cartId = req.params.cid;
+        const cart = await cartManager.getCartById(cartId);
+
+        if (!cart) {
+            return res.status(404).json({ message: 'Cart not found' });
+        }
+
+        // Estructura los datos del carrito específico
+        const cartDetails = {
+            id: cart._id,
+            totalQuantity: cart.products.reduce((total, item) => total + item.quantity, 0),
+            products: cart.products.map(item => ({
+                id: item.productId._id,
+                title: item.productId.title,
+                price: item.productId.price,
+                quantity: item.quantity
+            }))
+        };
+
+        res.json(cartDetails);
+    } catch (error) {
+        console.error('Error retrieving cart details:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+
 
 
 // Crear un nuevo carrito

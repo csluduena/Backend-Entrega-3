@@ -1,32 +1,21 @@
-<!-- views/carts.handlebars -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carts</title>
-    <link rel="stylesheet" href="/styles/styles.css">
-</head>
-<body>
-    <h1>Carts</h1>
-    {{#if carts.length}}
-        <ul>
-            {{#each carts}}
-                <li>
-                    <h2>Cart ID: {{id}}</h2>
-                    <p>Total Products: {{totalQuantity}}</p>
-                    <ul>
-                        {{#each products}}
-                            <li>
-                                Product ID: {{id}} - Title: {{title}}, Price: {{price}}, Quantity: {{quantity}}
-                            </li>
-                        {{/each}}
-                    </ul>
-                </li>
-            {{/each}}
-        </ul>
-    {{else}}
-        <p>No carts found</p>
-    {{/if}}
-</body>
-</html>
+{{!-- No necesitas el DOCTYPE, html, head o body aquí --}}
+<h1>Carts</h1>
+{{#if carts.length}}
+    <ul>
+        {{#each carts}}
+            <li>
+                <h2>Cart ID: {{id}}</h2>
+                <p>Total Products: {{totalQuantity}}</p>
+                <ul>
+                    {{#each products}}
+                        <li>
+                            Product ID: {{id}} - Title: {{title}}, Price: {{price}}, Quantity: {{quantity}}
+                        </li>
+                    {{/each}}
+                </ul>
+            </li>
+        {{/each}}
+    </ul>
+{{else}}
+    <p>No carts found</p>
+{{/if}}

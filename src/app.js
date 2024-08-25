@@ -13,38 +13,46 @@ const app = express();
 const httpServer = http.createServer(app);
 const io = new Server(httpServer);
 
+// Configuración de Handlebars
+const hbs = exphbs.create({
+    defaultLayout: 'main',
+    runtimeOptions: {
+        allowProtoPropertiesByDefault: true,
+        allowProtoMethodsByDefault: true,
+    }
+});
+
+app.engine('handlebars', hbs.engine);
+app.set('view engine', 'handlebars');
+app.set('views', './src/views');
+
 // Middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("./src/public"));
 
-// Handlebars view engine setup
-app.engine("handlebars", exphbs.engine());
-app.set("view engine", "handlebars");
-app.set("views", "./src/views");
-
-// Mount API routers
+// Montar routers de API
 app.use("/api/products", productsRouter);
 app.use("/api/carts", cartsRouter);
 
-// Mount view routes
+// Montar rutas de vistas
 app.use("/", viewsRouter);
 
-// WebSocket handling for real-time updates
+// Manejo de WebSocket para actualizaciones en tiempo real
 io.on("connection", (socket) => {
     console.log("New client connected");
 
     socket.on("sortProducts", async (data) => {
         const { sort } = data;
         try {
-            const products = await ProductManager.getProducts(); // Adjust if ProductManager is imported differently
+            const products = await ProductManager.getProducts();
             const sortedProducts = products.sort((a, b) => {
                 if (sort === "asc") {
                     return a.price - b.price;
                 } else if (sort === "desc") {
                     return b.price - a.price;
                 } else {
-                    return 0; // Default case if sort is not asc or desc
+                    return 0;
                 }
             });
             socket.emit("updateProducts", sortedProducts);
@@ -59,11 +67,12 @@ io.on("connection", (socket) => {
     });
 });
 
+// Iniciar servidor
 httpServer.listen(PORT, () => {
     console.log(`Servidor corriendo en el puerto ${PORT}`);
 });
 
-// Default route for unmatched requests
+// Manejo de rutas no encontradas
 app.get("*", (req, res) => {
     res.status(400).send("Route not found");
 });
