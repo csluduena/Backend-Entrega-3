@@ -1,4 +1,5 @@
 import CartModel from "../models/cart.model.js";
+import ProductModel from "../models/product.model.js";
 
 class CartManager {
     async createCart() {
@@ -31,6 +32,10 @@ class CartManager {
         try {
             const cart = await this.getCartById(cartId);
 
+            if (!cart) {
+                throw new Error('Cart not found');
+            }
+
             const existingProduct = cart.products.find(item => item.product._id.toString() === productId.toString());
 
             if (existingProduct) {
@@ -52,22 +57,38 @@ class CartManager {
         }
     }
 
+    // async getAllCarts() {
+    //     try {
+    //         const carts = await CartModel.find({}, '_id');
+    //         return {
+    //             count: carts.length,
+    //             carts: carts.map(cart => cart._id)
+    //         };
+    //     } catch (error) {
+    //         console.error('Error retrieving carts:', error);
+    //         throw new Error('Could not retrieve carts');
+    //     }
+    // }
+
     async getAllCarts() {
         try {
-            // Recupera todos los carritos desde la base de datos utilizando el modelo correcto
-            const carts = await CartModel.find({}, '_id');
-
-            // Retorna la cantidad de carritos y sus IDs
-            return {
-                count: carts.length,
-                carts: carts.map(cart => cart._id)
-            };
+            // Obtiene todos los carritos con detalles de productos
+            const carts = await CartModel.find().populate('products.product', '_id title price');
+            return carts.map(cart => ({
+                id: cart._id,
+                products: cart.products.map(p => ({
+                    id: p.product._id,
+                    title: p.product.title,
+                    price: p.product.price,
+                    quantity: p.quantity
+                })),
+                totalQuantity: cart.products.reduce((sum, p) => sum + p.quantity, 0) // Calcula la cantidad total de productos
+            }));
         } catch (error) {
             console.error('Error retrieving carts:', error);
             throw new Error('Could not retrieve carts');
         }
     }
-
 
     async deleteItem(itemId, cartId) {
         try {
@@ -77,7 +98,7 @@ class CartManager {
                 throw new Error('Cart not found');
             }
 
-            const index = cart.products.findIndex(item => item.product._id.toString() === itemId.toString());
+            const index = cart.products.findIndex(item => item.product.toString() === itemId.toString());
 
             if (index !== -1) {
                 cart.products.splice(index, 1);
