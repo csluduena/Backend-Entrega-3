@@ -1,4 +1,3 @@
-{{!-- No necesitas el DOCTYPE, html, head o body aquí --}}
 <h1>Products</h1>
 {{#if productos.length}}
 <ul>
@@ -20,21 +19,6 @@
             </select>
             <button type="submit">Add to Cart</button>
         </form>
-
-        <script>
-            document.addEventListener('DOMContentLoaded', () => {
-                fetch('/api/carts')
-                    .then(response => response.json())
-                    .then(carts => {
-                        const select = document.querySelector('select[name="cartId"]');
-                        select.innerHTML = carts.map(cart => `<option value="${cart._id}">Cart ID: ${cart._id}</option>`).join('');
-                    })
-                    .catch(error => {
-                        console.error('Error fetching carts', error);
-                        document.querySelector('select[name="cartId"]').innerHTML = '<option value="">Failed to load carts</option>';
-                    });
-            });
-        </script>
 
         <br><br><br>
     </div>
@@ -60,3 +44,27 @@
         <p class="textPag">Page {{currentPage}} of {{totalPages}}</p>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const selectElements = document.querySelectorAll('select[name="cartId"]');
+
+        selectElements.forEach(select => {
+            fetch('/api/carts')
+                .then(response => response.json())
+                .then(carts => {
+                    console.log('Carts received:', carts); // Verifica que los datos estén llegando
+                    if (carts.length > 0) {
+                        select.innerHTML = carts.map(cart => `<option value="${cart.id}">Cart ID: ${cart.id}</option>`).join('');
+                    } else {
+                        select.innerHTML = '<option value="">No carts available</option>';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching carts', error);
+                    select.innerHTML = '<option value="">Failed to load carts</option>';
+                });
+        });
+    });
+
+</script>

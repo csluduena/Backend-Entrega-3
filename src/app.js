@@ -52,6 +52,12 @@ app.use('/api/carts', cartsRouter);
 // Montar rutas de vistas
 app.use('/', viewsRouter);
 
+app.use('/favicon.ico', (req, res) => res.status(204).end());
+
+
+// Utiliza el router de carritos
+app.use(cartsRouter);
+
 // Manejo de WebSocket para actualizaciones en tiempo real
 io.on('connection', (socket) => {
     console.log('New client connected');
