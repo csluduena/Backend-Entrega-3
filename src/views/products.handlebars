@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Productos</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+
+<body>
+    <h1>Lista de Productos</h1>
+    <ul class="productosList">
+        {{#each products}}
+        <div class="card">
+            <img src="{{this.img}}" alt="{{this.title}}" class="productImage">
+            <p>Type: {{this.title}}</p>
+            <p>Description: {{this.description}}</p>
+            <p>Price: ${{this.price}}</p>
+            <button data-id="{{this._id}}">Add</button>
+        </div>
+        {{/each}}
+    </ul>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
+
+{{!-- 
+_id: new ObjectId('66ca5c9c8c151cf08e165127'),
+    title: 'Gibson SG Standard 2016 T',
+    description: 'The Gibson SG was born in 1961 and since then it has become a staple throughout the world of popular music. Its double cutaway means that access to the highest frets is easy and its thinner body means that it’s lighter too (compared to a Les Paul). The Gibson SG Standard 2016 T is a nod back to the SGs of the 60s and we, here at Reidys, really like it.',
+    price: 1457,
+    img: '/img/GibsonSGStandard2016T.png',
+    code: 'SG-Standard',
+    stock: 50,
+    category: 'SG',
+    status: true,
+    thumbnails: [] --}}
+
+
+
+
+{{!--
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+
+<body>
+    <!-- Botón flotante "Back" -->
+    <a href="http://localhost:8080/" class="floating-button">Back</a>
+    <h1>Products</h1>
+    <div id="contenedorProductos" class="productsContainer">
+        {{#each productos}}
+        <div class="card">
+            <img src="{{this.imagen}}" alt="{{this.nombre}}" class="productImage">
+            <p>Type: {{this.nombre}}</p>
+            <p>Description: {{this.descripcion}}</p>
+            <p>Price: ${{this.precio}}</p>
+            <button data-id="{{this.id}}">Add</button>
+        </div>
+        {{/each}}
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html> --}}

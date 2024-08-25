@@ -1,0 +1,57 @@
+import fs from 'fs/promises';
+import ProductManagerDB from '../db/product-manager-db.js';
+import path from 'path';
+
+const productsFilePath = path.join(process.cwd(), 'src', 'dao', 'fs', 'products.json');
+
+// Crea una instancia de ProductManagerDB
+const productManager = new ProductManagerDB();
+
+export async function initializeSync() {
+    try {
+        // Leer productos desde MongoDB
+        const dbProducts = await productManager.getProducts();
+
+        // Leer productos desde el archivo JSON
+        const fileData = await fs.readFile(productsFilePath, 'utf-8');
+        const fileProducts = JSON.parse(fileData);
+
+        // Actualizar el archivo JSON con productos de MongoDB si está vacío o tiene productos sin ID
+        if (fileProducts.length === 0 || fileProducts.some(product => !product.id)) {
+            await fs.writeFile(productsFilePath, JSON.stringify(dbProducts, null, 2));
+            console.log('Archivo JSON sincronizado con MongoDB');
+        }
+
+        // Sincronizar productos del archivo JSON a MongoDB si hay diferencias
+        for (const fileProduct of fileProducts) {
+            const dbProduct = dbProducts.find(p => p.id === fileProduct.id);
+            if (!dbProduct) {
+                await productManager.addProduct(fileProduct);
+                console.log(`Producto agregado a MongoDB desde JSON: ${fileProduct.nombre}`);
+            }
+        }
+
+        console.log('Sincronización inicial completada');
+    } catch (error) {
+        console.error('Error durante la sincronización inicial:', error);
+    }
+}
+
+export async function syncProductToDB(product) {
+    try {
+        await productManager.addProduct(product);
+        console.log(`Producto sincronizado a MongoDB: ${product.nombre}`);
+    } catch (error) {
+        console.error('Error al sincronizar producto a MongoDB:', error);
+    }
+}
+
+export async function syncProductToJSON() {
+    try {
+        const dbProducts = await productManager.getProducts();
+        await fs.writeFile(productsFilePath, JSON.stringify(dbProducts, null, 2));
+        console.log('Archivo JSON actualizado desde MongoDB');
+    } catch (error) {
+        console.error('Error al sincronizar productos a JSON:', error);
+    }
+}
