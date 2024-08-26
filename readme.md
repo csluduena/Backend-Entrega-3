@@ -2,8 +2,8 @@
 
 Este proyecto es una continuación de la primera y segunda entrega para el curso de Backend en la academia Coderhouse. La tercera entrega incluye mejoras significativas tanto en el backend como en el frontend, con la incorporación de paginación, búsqueda avanzada y nuevas vistas. Para ver las entregas anteriores, puedes consultar los siguientes README:
 
-- [Primer Entrega](https://github.com/csluduena/Coderhouse-DesarrolloFullStack-Backend-Trabajo-1)
-- [Segunda Entrega](https://github.com/csluduena/Coderhouse-DesarrolloFullStack-Backend-Trabajo-2)
+- [Primer Entrega](https://github.com/csluduena/Backend-Primer-Entrega/blob/main/README.md)
+- [Segunda Entrega](https://github.com/csluduena/Backend-Segunda-Entrega/blob/main/README.md)
 
 ## Características del Proyecto
 
