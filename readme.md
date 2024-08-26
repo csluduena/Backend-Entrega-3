@@ -29,15 +29,15 @@ Este proyecto es una continuación de la primera y segunda entrega para el curso
 
   - **Incluye una Guía de Usuario, con Parámetros de Consulta como:**
     - **Parámetro `limit`:**
-      - Podrás consultar el valor máximo de productos a devolver, cuenta con `[Ejemplo en Código]`
+      - Podrás consultar el valor máximo de productos a devolver, cuenta con ejemplo en Código.
     - **Parámetro `page`:**
-      - Con `page` podrás acceder a una página en concreto, cuenta con `[Ejemplo en Código]` | `[Ejemplo Live en Web]`
+      - Con `page` podrás acceder a una página en concreto, cuenta con ejemplo en Código y Live Web.
       - Nota: Si no hay productos en la página solicitada, se mostrará un mensaje indicando que no hay productos.
     - **Parámetro `sort`:**
-      - Podrás consultar productos por ordenamiento ascendente, cuenta con `[Ejemplo en Código]` | `[Ejemplo Live en Web]`
-      - Podrás consultar productos por ordenamiento descendente, cuenta con `[Ejemplo en Código]` | `[Ejemplo Live en Web]`
+      - Podrás consultar productos por ordenamiento ascendente, cuenta con ejemplo en Código y Live Web.
+      - Podrás consultar productos por ordenamiento descendente, cuenta con ejemplo en Código y Live Web.
     - **Parámetro `query`:**
-      - Podrás consultar productos filtrando por categorías, cuenta con `[Ejemplo en Código]` | `[Ejemplo Live en Web]`
+      - Podrás consultar productos filtrando por categorías, cuenta con ejemplo en Código y Live Web.
 
 - **Gestión de Carritos:**
   - **Nuevos Endpoints:**
@@ -64,7 +64,6 @@ Este proyecto es una continuación de la primera y segunda entrega para el curso
 
 - **Estilos Personalizados:**
   - **CSS:** Estilización mejorada para una experiencia de usuario más atractiva, incluyendo una nueva sombra blanca para los botones.
-  - **Fuente Personalizada:** Inclusión de una fuente personalizada llamada `Dienasty`.
 
 ## Tecnologías Utilizadas
 
