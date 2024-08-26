@@ -25,10 +25,11 @@ router.get("/products", async (req, res) => {
         });
 
         const nuevoArray = productos.docs.map((producto) => {
-            const { _id, ...rest } = producto.toObject();
+            const rest = producto.toObject();
             return rest;
         });
 
+        //console.log(nuevoArray);
         res.render("products", {
             productos: nuevoArray,
             hasPrevPage: productos.hasPrevPage,
@@ -46,6 +47,31 @@ router.get("/products", async (req, res) => {
         });
     }
 });
+
+router.get("/products/:pid", async (req, res) => {
+    try {
+        const productId = req.params.pid;
+        const product = await productManager.getProductById(productId);
+
+        if (!product) {
+            res.status(404).json({
+                status: "error",
+                error: "Product not found",
+            });
+            return;
+        }
+
+        res.render("productsDetails", { product });
+    } catch (error) {
+        console.error("Error getting product:", error);
+        res.status(500).json({
+            status: "error",
+            error: "Internal Server Error",
+        });
+    }
+})
+
+
 
 // Ruta para obtener productos ordenados en tiempo real
 router.get("/realtimeproducts", async (req, res) => {

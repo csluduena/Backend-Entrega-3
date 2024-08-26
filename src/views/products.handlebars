@@ -5,14 +5,15 @@
     <div class="prodList">
         <h2>{{title}}</h2>
         <img src="{{this.img}}" alt="{{this.title}}" class="productImage">
-        <p>{{_id}}</p>
+        <p>{{this._id}}</p>
         <p class="categorySte">{{description}}</p>
         <p>Price: ${{price}}</p>
         <p>Category: {{category}}</p>
+        <button class="pointer" id="add2Cart" onclick="window.open('/products/{{this._id}}', '_blank')">Ver Mas</button><br>
 
         <!-- Formulario para agregar al carrito -->
         <form action="/api/carts/addProduct" method="POST" class="add-to-cart-form">
-            <input type="hidden" name="productId" value="{{_id}}">
+            <input type="hidden" name="productId" value="{{this._id}}">
             <label for="cartId">Select Cart:</label>
             <select name="cartId" required>
                 <option value="">Loading...</option>
