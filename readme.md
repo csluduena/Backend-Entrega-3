@@ -2,8 +2,8 @@
 
 Este proyecto es una continuación de las entregas anteriores para el curso de Backend en la academia Coderhouse. Puedes consultar las entregas previas en los siguientes enlaces:
 
-- [Primer Entrega](https://github.com/csluduena/Backend-Primer-Entrega/blob/main/README.md)
-- [Segunda Entrega](https://github.com/csluduena/Backend-Segunda-Entrega/blob/main/README.md)
+- [Primer Entrega](https://github.com/csluduena/Coderhouse-DesarrolloFullStack-Backend-Trabajo-1)
+- [Segunda Entrega](https://github.com/csluduena/Coderhouse-DesarrolloFullStack-Backend-Trabajo-2)
 
 En esta tercera entrega, el proyecto ha sido ampliado significativamente para incluir la gestión de carritos de compra en el backend y mejorar aún más la funcionalidad de la interfaz de usuario en el frontend.
 
