@@ -5,6 +5,18 @@ body {
     background-color: #757474;
 }
 
+@font-face {
+    font-family: dinasty;
+    src: url(../fonts/dienasty.otf);
+}
+
+.tipografia {
+    font-family: dinasty;
+    color: red;
+    font-size: 53px;
+    text-shadow: 2px 1px white;
+}
+
 h1 {
     text-align: center;
     margin-top: 20px;
@@ -107,6 +119,7 @@ h1 {
     position: fixed;
     bottom: 25px;
     left: 25px;
+    z-index: 1000;
     width: 100%;
     flex-direction: column;
     flex-wrap: nowrap;
@@ -122,27 +135,39 @@ h1 {
 /* Estilos para el enlace "Siguiente" */
 .next-page,
 .prev-page {
-    color: white;
-    background-color: #000000; /* Color de fondo del botón */
-    padding: 10px 20px; /* Espaciado interno */
+    color: rgb(255, 255, 255);
+    background-color: #df0000;
+    /* Color de fondo del botón */
+    padding: 10px 20px;
+    /* Espaciado interno */
     text-decoration: none;
     font-weight: bold;
-    border-radius: 5px; /* Bordes redondeados */
-    margin: 0 10px; /* Espaciado entre los botones */
-    transition: background-color 0.3s; /* Suavizado para el hover */
+    border-radius: 5px;
+    /* Bordes redondeados */
+    margin: 0 10px;
+    /* Espaciado entre los botones */
+    transition: background-color 0.3s;
+    /* Suavizado para el hover */
+    box-shadow: 0px 0px 5px 4px rgb(255, 254, 254);
+    /* Sombra blanca */
+    margin-bottom: 1rem;
 }
 
 /* Efecto hover */
 .next-page:hover,
 .prev-page:hover {
-    background-color: #6d0909; /* Cambiar color de fondo al pasar el cursor */
-    text-decoration: none; /* Asegura que no haya subrayado en el hover */
+    background-color: #6d0909;
+    /* Cambiar color de fondo al pasar el cursor */
+    text-decoration: none;
+    /* Asegura que no haya subrayado en el hover */
+    box-shadow: 0px 0px 4px 7px rgb(255, 254, 254);
 }
 
 #add2Cart {
     background-color: #000000;
     padding: 10px;
     border-radius: 12px;
+    text-decoration: none; /* Elimina el subrayado del enlace */
     color: white;
 }
 
@@ -166,9 +191,10 @@ h1 {
 }
 
 .guide a {
-    color: #6d0909; 
+    color: #6d0909;
     background-color: white;
-    text-decoration: none; /* Elimina el subrayado de los enlaces */
+    text-decoration: none;
+    /* Elimina el subrayado de los enlaces */
 }
 
 .guide h2 {
@@ -260,9 +286,9 @@ body::before {
     padding: 10px 0;
 }
 
-.product-id0, 
-.product-title0, 
-.product-price0, 
+.product-id0,
+.product-title0,
+.product-price0,
 .product-quantity0 {
     margin: 5px 0;
 }
@@ -279,10 +305,12 @@ body::before {
     font-size: 20px;
 }
 
-.remove0, 
+.remove0,
 .remove0 a {
-    text-decoration: none; /* Elimina el subrayado en los enlaces */
-    color: inherit; /* Mantiene el color del texto de acuerdo con el elemento padre */
+    text-decoration: none;
+    /* Elimina el subrayado en los enlaces */
+    color: inherit;
+    /* Mantiene el color del texto de acuerdo con el elemento padre */
 }
 
 .remove0:hover {
@@ -290,9 +318,176 @@ body::before {
 }
 
 .btnBack2Carts {
-    text-decoration: none;
+    text-decoration: none; /* Elimina el subrayado del enlace */
 }
 
+.product-item2 {
+    list-style-type: none;
+}
+
+.cartsDetails1 {
+    background-color: rgba(0, 0, 0, 0.322);
+    text-align: center;
+}
 
 /* ------------------------ */
 
+
+
+.button-container01 {
+    display: flex;
+    gap: 2rem;
+}
+
+.button-wrapper01 {
+    width: 150px; /* Fija el ancho para evitar movimiento */
+    text-align: center;
+    position: relative; /* Asegura la posición relativa para los menús desplegables */
+}
+
+.main-button01 {
+    padding: 6px 24px;
+    font-size: 20px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: #9f3802;
+    color: white;
+    transition: background-color 0.3s ease;
+    width: 100%;
+}
+
+.main-button01:hover {
+    background-color: #fd6a1a;
+}
+
+.options01 {
+    display: none;
+    list-style-type: none;
+    padding: 0;
+    margin: -2px 0 0 0;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+}
+
+.options01 li {
+    margin: 0.5rem 0;
+}
+
+.options01 button {
+    padding: 8px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: #741d1d;
+    color: white;
+    transition: background-color 0.3s ease;
+    width: 100%;
+}
+
+.options01 button:hover {
+    background-color: #e04a2b;
+}
+
+.memin01 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+}
+
+.button-wrapper01:hover .options01 {
+    display: block; /* Mostrar el menú al pasar el cursor sobre el contenedor del botón */
+}
+
+.btnbck {
+    margin-top: 3rem;
+    text-decoration: none; /* Elimina el subrayado del enlace */
+}
+
+.detail-products02 {
+    margin-left: 25%;
+    margin-right: 25%;
+}
+
+.songoro {
+    position: fixed; /* Mantiene el botón fijo en la pantalla */
+    top: 2rem; /* Espaciado desde la parte superior */
+    right: 2rem; /* Espaciado desde el lado derecho */
+    z-index: 1000; /* Asegura que el botón esté por encima de otros elementos */
+    box-shadow: 0px 0px 5px 4px rgb(255, 254, 254);
+    
+}
+
+.songoro:hover {
+    box-shadow: 0px 0px 5px 7px rgb(248, 179, 89);
+}
+
+.btnbck:focus, .btnbck:active {
+    outline: none; /* Elimina el contorno del enfoque */
+    box-shadow: none; /* Elimina la sombra de enfoque */
+}
+
+/* Estilos para el footer */
+.site-footer {
+    background-color: rgba(0, 0, 0, 0.8);
+    /* Negro semi-difuminado */
+    color: #fff;
+    /* Letras blancas */
+    margin-top: 3em;
+    margin-bottom: 1em;
+    padding-top: 10px;
+    padding-bottom: 20px;
+    text-align: center;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    /* Línea blanca sutil en la parte superior */
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-links {
+    margin-top: 10px;
+}
+
+.footer-links a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 16px;
+    position: relative;
+    /* Posición relativa para los efectos de línea */
+    padding: 5px 0;
+}
+
+.footer-links a::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 2px;
+    background: #fff;
+    transition: width 0.3s;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.footer-links a:hover::after {
+    width: 100%;
+}
+
+.footer-links a:hover {
+    text-decoration: none;
+    color: #f0f0f0;
+    /* Color de texto ligeramente más claro al pasar el ratón */
+}
