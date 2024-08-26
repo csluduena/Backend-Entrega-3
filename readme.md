@@ -29,15 +29,15 @@ Este proyecto es una continuación de la primera y segunda entrega para el curso
 
   - **Incluye una Guía de Usuario, con Parámetros de Consulta como:**
     - **Parámetro `limit`:**
-      - Podrás consultar el valor máximo de productos a devolver, cuenta con [Ejemplo en Código](#)
+      - Podrás consultar el valor máximo de productos a devolver, cuenta con `[Ejemplo en Código]`
     - **Parámetro `page`:**
-      - Con `page` podrás acceder a una página en concreto, cuenta con [Ejemplo en Código](#) | [Ejemplo Live en Web](#)
+      - Con `page` podrás acceder a una página en concreto, cuenta con `[Ejemplo en Código]` | `[Ejemplo Live en Web]`
       - Nota: Si no hay productos en la página solicitada, se mostrará un mensaje indicando que no hay productos.
     - **Parámetro `sort`:**
-      - Podrás consultar productos por ordenamiento ascendente, cuenta con [Ejemplo en Código](#) | [Ejemplo Live en Web](#)
-      - Podrás consultar productos por ordenamiento descendente, cuenta con [Ejemplo en Código](#) | [Ejemplo Live en Web](#)
+      - Podrás consultar productos por ordenamiento ascendente, cuenta con `[Ejemplo en Código]` | `[Ejemplo Live en Web]`
+      - Podrás consultar productos por ordenamiento descendente, cuenta con `[Ejemplo en Código]` | `[Ejemplo Live en Web]`
     - **Parámetro `query`:**
-      - Podrás consultar productos filtrando por categorías, cuenta con [Ejemplo en Código](#) | [Ejemplo Live en Web](#)
+      - Podrás consultar productos filtrando por categorías, cuenta con `[Ejemplo en Código]` | `[Ejemplo Live en Web]`
 
 - **Gestión de Carritos:**
   - **Nuevos Endpoints:**
