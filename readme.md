@@ -1,6 +1,6 @@
 # Proyecto de Backend y Frontend para la Academia Coderhouse
 
-Este proyecto es una continuación de la primera y segunda entrega para el curso de Backend en la academia Coderhouse. La tercera entrega incluye mejoras significativas tanto en el backend como en el frontend, con la incorporación de paginación, búsqueda avanzada y nuevas vistas. Para ver las entregas anteriores, puedes consultar los siguientes README:
+Este proyecto es una continuación del proyecto final 3 de Backend 1, para el curso de Backend 2 en la academia Coderhouse. Esta primer entrega incluye mejoras significativas tanto en el backend como en el frontend, con la incorporación de paginación, búsqueda avanzada y nuevas vistas. Para ver las entregas anteriores, puedes consultar los siguientes README:
 
 - [Primer Entrega](https://github.com/csluduena/Backend-Primer-Entrega/blob/main/README.md)
 - [Segunda Entrega](https://github.com/csluduena/Backend-Segunda-Entrega/blob/main/README.md)
